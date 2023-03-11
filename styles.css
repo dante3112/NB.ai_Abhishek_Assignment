@@ -1,0 +1,12 @@
+.map {
+    width: 100%;
+    height:100vh;
+  }
+
+#start_new {
+    border-color: #996BA8;
+}
+
+#end_new {
+    border-color: #996BA8;
+}

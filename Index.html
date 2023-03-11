@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assesment NB.AI</title>
+    <link rel="icon" href="icons/nbai-og.png">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://maps-gl.nextbillion.io/maps/v2/api/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        input {
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Search for Directions b/w POIs</h1>
+<div>
+    <div>
+        <form>
+            <table>
+                <tr>
+                    <td>
+                        <label for="start_new">Your Start Destination:</label>
+                    </td>
+                    <td>
+                        <input type="text" id="start_new" name="start_new" onkeyup="searchInput('start_new')">
+                    </td>
+                    <!-- <td>
+                        <button type="button" onclick="getCurrentPos()">Use My Location</button>
+                    </td> -->
+                </tr>
+                <tr>
+                    <td>
+                        <label for="start_new">Your End Destination:</label>
+                    </td>
+                    <td>
+                        <input type="text" id="end_new" name="end_new" onkeyup="searchInput('end_new')">
+                    </td>
+                </tr>
+            </table>
+            <button type="button" onclick="calculateRoute()">Search</button>
+            <button type="button" onclick="clearRoute()">Reset</button>
+
+        </form>
+    </div>
+    <div class="grid-2">
+        <div id="js-map" class="map"></div>
+    </div>
+
+</div>
+<script src="https://maps-gl.nextbillion.io/maps/v2/api/js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="main.js"></script>
+</body>
+<script>
+    var map;
+    (function loadMap() {
+        //Set API Key
+        nextbillion.setApiKey('2707de05fbd440de9b40202d1f93f7cd');
+
+        //Load map
+        map = new nextbillion.maps.Map({
+            container: document.getElementById('js-map'),
+            style: "https://api.nextbillion.io/maps/streets/style.json",
+            zoom: 12,
+            center: {lat: 28.5945, lng: 77.0653}
+        });
+
+        // Add navigation controls to map
+        var nav = new nextbillion.maps.NavigationControl();
+        map.map.addControl(nav, 'top-right');
+
+        // Add get-geolocation option feature to map
+        map.map.addControl(new nextbillion.maps.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        }));
+
+        // Add fullscreen option
+        map.map.addControl(new nextbillion.maps.FullscreenControl({container: document.querySelector('body')}));
+    })()
+</script>
+
+</html>
